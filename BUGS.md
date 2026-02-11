@@ -77,55 +77,34 @@
 
 ### Player Setup Bugs
 
-#### 1. Player Name Can Start Empty
-- **Status**: Open
+#### 1. Player Name Validation Missing
+- **Status**: Fixed
 - **Date Found**: February 11, 2026
-- **Description**: Players can start the game without entering names. Empty input fields default to "Player 1" and "Player 2" instead of requiring valid input.
+- **Date Fixed**: February 11, 2026
+- **Description**: The "Start Game" button does not validate player names. Players can start the game with empty names (defaulting to "Player 1" and "Player 2") or with identical names, making it impossible to distinguish between players.
 - **Steps to Reproduce**:
-  1. Leave player name fields empty
+  1. Leave player name fields empty OR enter the same name for both players
   2. Click "Start Game"
-  3. Game starts with default names
-- **Expected Behavior**: Game should not start if player names are empty. Error message should be displayed (per REQ-PS-01)
-- **Actual Behavior**: Game starts with default names "Player 1" and "Player 2"
+  3. Game starts without validation
+- **Expected Behavior**: 
+  - Player names MUST NOT be empty (per REQ-PS-01)
+  - Player 1 and Player 2 MUST have different names (per REQ-PS-01)
+  - The "Start Game" button MUST validate player names (per REQ-PS-02)
+  - Error messages should be displayed for invalid input
+- **Actual Behavior**: Game starts with default names or identical names without validation
 - **Priority**: High
-- **Requirements Violated**: REQ-PS-01 (Player names MUST NOT be empty)
+- **Requirements Violated**: REQ-PS-01 (Player names MUST NOT be empty, players MUST have different names), REQ-PS-02 (The "Start Game" button MUST validate player names)
 - **Assigned To**: 
-- **Notes**: Code at line 139-140 in script.js uses fallback values instead of validating
-
-#### 2. Players Can Start with Similar Names
-- **Status**: Open
-- **Date Found**: February 11, 2026
-- **Description**: Two players can have the same or identical names, making it impossible to distinguish between them during gameplay.
-- **Steps to Reproduce**:
-  1. Enter "John" for Player 1
-  2. Enter "John" for Player 2
-  3. Click "Start Game"
-  4. Game starts with both players having the same name
-- **Expected Behavior**: Game should validate that Player 1 and Player 2 have different names. Error message should be displayed (per REQ-PS-01)
-- **Actual Behavior**: Game allows identical player names
-- **Priority**: High
-- **Requirements Violated**: REQ-PS-01 (Player 1 and Player 2 MUST have different names)
-- **Assigned To**: 
-- **Notes**: No validation check exists in startGame() function
-
-#### 3. Missing Start Game Button Validation
-- **Status**: Open
-- **Date Found**: February 11, 2026
-- **Description**: The "Start Game" button does not validate player names before starting the game
-- **Expected Behavior**: The "Start Game" button MUST validate player names (per REQ-PS-02)
-- **Actual Behavior**: No validation occurs; game starts regardless of input
-- **Priority**: High
-- **Requirements Violated**: REQ-PS-02 (The "Start Game" button MUST validate player names)
-- **Assigned To**: 
-- **Notes**: Validation logic needs to be added to startGame() function at line 135
+- **Notes**: Fixed by implementing full validation logic in startGame() function that checks for empty names and duplicate names with appropriate error messages
 
 ---
 
 ### Game Flow Bugs
 
 #### 1. Player Turn Does Not Change After Win
-- **Status**: Open
+- **Status**: Fixed
 - **Date Found**: February 11, 2026
+- **Date Fixed**: February 11, 2026
 - **Description**: When a player wins a round, the turn does not switch to the other player. The same player continues playing in the next round.
 - **Steps to Reproduce**:
   1. Start a game with two players
@@ -137,7 +116,7 @@
 - **Priority**: High
 - **Requirements Violated**: REQ-WL-01 (Players MUST switch turns after a win), REQ-WL-04 (The next player MUST be the one who didn't play the previous round)
 - **Assigned To**: 
-- **Notes**: gameWon() function does not switch currentPlayer; only gameLost() function at line 319 switches turns
+- **Notes**: Fixed by adding player turn switching logic to gameWon() function to match gameLost() behavior
 
 #### 2. Lives Not Resetting Between Rounds
 - **Status**: Open
