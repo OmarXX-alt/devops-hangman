@@ -19,6 +19,23 @@ let gameState = {
 
 let wordBank = [];
 
+// Centralized word validation to enforce REQ-WB-01 everywhere
+function validateWordInput(rawWord) {
+    const word = rawWord.trim().toUpperCase();
+
+    if (word === '') {
+        alert('Word cannot be empty.');
+        return null;
+    }
+    
+    if (!/^[A-Z]+$/.test(word)) {
+        alert('Word must contain only uppercase letters (A-Z). Numbers and special characters are not allowed.');
+        return null;
+    }
+
+    return word;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     loadWordBank();
     generateKeyboard();
@@ -99,9 +116,13 @@ function displayWordBank() {
 
 function addWord() {
     const input = document.getElementById('newWord');
-    const word = input.value.trim().toUpperCase();
+    const validatedWord = validateWordInput(input.value);
 
-    wordBank.push(word);
+    if (!validatedWord) {
+        return;
+    }
+
+    wordBank.push(validatedWord);
     input.value = '';
     saveWordBank();
     displayWordBank();
@@ -109,8 +130,14 @@ function addWord() {
 
 function editWord(index) {
     const newWord = prompt('Edit word:', wordBank[index]);
-    if (newWord) {
-        wordBank.splice(index, 1);
+    if (newWord !== null) {
+        const validatedWord = validateWordInput(newWord);
+
+        if (!validatedWord) {
+            return;
+        }
+
+        wordBank[index] = validatedWord;
         saveWordBank();
         displayWordBank();
     }
