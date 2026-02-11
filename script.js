@@ -102,6 +102,7 @@ function addWord() {
 }
 
 function editWord(index) {
+    //added fix for edit word
     const currentWord = wordBank[index];
     const newWord = prompt('Edit word:', currentWord);
 
