@@ -78,8 +78,9 @@
 ### Player Setup Bugs
 
 #### 1. Player Name Can Start Empty
-- **Status**: Open
+- **Status**: Fixed
 - **Date Found**: February 11, 2026
+- **Date Fixed**: February 11, 2026
 - **Description**: Players can start the game without entering names. Empty input fields default to "Player 1" and "Player 2" instead of requiring valid input.
 - **Steps to Reproduce**:
   1. Leave player name fields empty
@@ -90,11 +91,12 @@
 - **Priority**: High
 - **Requirements Violated**: REQ-PS-01 (Player names MUST NOT be empty)
 - **Assigned To**: 
-- **Notes**: Code at line 139-140 in script.js uses fallback values instead of validating
+- **Notes**: Fixed by adding validation in startGame() function to check for empty names and display error message
 
 #### 2. Players Can Start with Similar Names
-- **Status**: Open
+- **Status**: Fixed
 - **Date Found**: February 11, 2026
+- **Date Fixed**: February 11, 2026
 - **Description**: Two players can have the same or identical names, making it impossible to distinguish between them during gameplay.
 - **Steps to Reproduce**:
   1. Enter "John" for Player 1
@@ -106,18 +108,19 @@
 - **Priority**: High
 - **Requirements Violated**: REQ-PS-01 (Player 1 and Player 2 MUST have different names)
 - **Assigned To**: 
-- **Notes**: No validation check exists in startGame() function
+- **Notes**: Fixed by adding name comparison validation in startGame() function
 
 #### 3. Missing Start Game Button Validation
-- **Status**: Open
+- **Status**: Fixed
 - **Date Found**: February 11, 2026
+- **Date Fixed**: February 11, 2026
 - **Description**: The "Start Game" button does not validate player names before starting the game
 - **Expected Behavior**: The "Start Game" button MUST validate player names (per REQ-PS-02)
 - **Actual Behavior**: No validation occurs; game starts regardless of input
 - **Priority**: High
 - **Requirements Violated**: REQ-PS-02 (The "Start Game" button MUST validate player names)
 - **Assigned To**: 
-- **Notes**: Validation logic needs to be added to startGame() function at line 135
+- **Notes**: Fixed by implementing full validation logic in startGame() function that checks both empty names and duplicate names
 
 ---
 
