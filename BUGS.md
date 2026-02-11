@@ -206,8 +206,9 @@
 - **Notes**: toggleTheme() function only changes icon, does not apply dark mode CSS class or styles
 
 #### 3. Word Bank Accessible During Active Gameplay
-- **Status**: Open
+- **Status**: Fixed
 - **Date Found**: February 11, 2026
+- **Date Fixed**: February 11, 2026
 - **Description**: Players can switch to the Word Bank tab during active gameplay, allowing them to cheat by viewing the word list
 - **Steps to Reproduce**:
   1. Start a game with player names
@@ -219,7 +220,7 @@
 - **Priority**: High
 - **Requirements Violated**: REQ-UI-03 (Word bank tab content MUST be hidden during active gameplay)
 - **Assigned To**: 
-- **Notes**: switchTab() function does not check gameState.gameActive; need to add anti-cheat prevention
+- **Notes**: Fixed by adding gameState.gameActive check in switchTab() function with alert message to prevent access
 
 #### 4. Letter Buttons Not Disabled After Click
 - **Status**: Open
