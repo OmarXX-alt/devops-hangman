@@ -93,13 +93,27 @@ function displayWordBank() {
 
 function addWord() {
     const input = document.getElementById('newWord');
-    const word = input.value.trim().toUpperCase();
+    const rawWord = input.value.trim();
+    const word = rawWord.toUpperCase();
+
+    // Validation
+    if (word === '') {
+        alert('Word cannot be empty!');
+        return;
+    }
+
+    if (wordBank.includes(word)) {
+        alert('This word already exists in the word bank!');
+        return;
+    }
+
 
     wordBank.push(word);
     input.value = '';
     saveWordBank();
     displayWordBank();
 }
+
 
 function editWord(index) {
     const newWord = prompt('Edit word:', wordBank[index]);
