@@ -237,11 +237,10 @@ function updateLives() {
 function updateHangman() {
     const parts = ['head', 'body', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'];
     
-    const wrongOrder = ['head', 'leftArm', 'rightArm', 'body', 'leftLeg', 'rightLeg'];
     const partIndex = gameState.wrongGuesses - 1;
     
-    if (partIndex >= 0 && partIndex < wrongOrder.length) {
-        const partToShow = wrongOrder[partIndex];
+    if (partIndex >= 0 && partIndex < parts.length) {
+        const partToShow = parts[partIndex];
         document.getElementById(partToShow).style.display = 'block';
     }
 }
