@@ -35,6 +35,12 @@ function toggleTheme() {
 }
 
 function switchTab(tabName) {
+    // Prevent word bank access during active gameplay (REQ-UI-03)
+    if (tabName === 'wordbank' && gameState.gameActive) {
+        alert('Cannot access Word Bank during active gameplay! Finish the current round first.');
+        return;
+    }
+    
     const tabs = document.querySelectorAll('.tab-content');
     tabs.forEach(tab => tab.classList.remove('active'));
     

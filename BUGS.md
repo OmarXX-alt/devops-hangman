@@ -171,17 +171,70 @@
 - **Requirements Violated**: REQ-GM-05 (Parts MUST appear in this order: head, body, left arm, right arm, left leg, right leg)
 - **Assigned To**: 
 - **Notes**: Fixed by removing the wrongOrder array and using the correct parts array in updateHangman() function
+
+---
+
+### User Interface Bugs
+
+#### 1. Theme Toggle Does Not Persist After Page Refresh
+- **Status**: Open
 - **Date Found**: February 11, 2026
-- **Description**: Hangman parts appear in the wrong order. Currently displays: head → left arm → right arm → body → left leg → right leg
+- **Description**: When users toggle between light and dark mode, the theme preference is not saved and does not persist after page refresh
+- **Steps to Reproduce**:
+  1. Click theme toggle button to switch to dark mode (☀️ icon)
+  2. Refresh the page
+  3. Theme reverts back to light mode (🌙 icon)
+- **Expected Behavior**: Theme preference MUST persist across page refreshes (per REQ-UI-02)
+- **Actual Behavior**: Theme resets to default (light mode) after page refresh
+- **Priority**: Medium
+- **Requirements Violated**: REQ-UI-02 (Theme preference MUST persist across page refreshes)
+- **Assigned To**: 
+- **Notes**: toggleTheme() function does not save theme preference to localStorage
+
+#### 2. No Dark Mode Styling Implementation
+- **Status**: Open
+- **Date Found**: February 11, 2026
+- **Description**: While the theme toggle icon switches, there is no actual visual change between light and dark modes
+- **Steps to Reproduce**:
+  1. Click theme toggle button
+  2. Observe that icon changes but page styling remains the same
+- **Expected Behavior**: Light mode MUST use bright colors (default), Dark mode MUST use dark colors with light text (per REQ-UI-02)
+- **Actual Behavior**: No styling changes occur; page remains in light mode regardless of toggle state
+- **Priority**: Medium
+- **Requirements Violated**: REQ-UI-02 (Clicking the toggle MUST switch between light mode and dark mode)
+- **Assigned To**: 
+- **Notes**: toggleTheme() function only changes icon, does not apply dark mode CSS class or styles
+
+#### 3. Word Bank Accessible During Active Gameplay
+- **Status**: Fixed
+- **Date Found**: February 11, 2026
+- **Date Fixed**: February 11, 2026
+- **Description**: Players can switch to the Word Bank tab during active gameplay, allowing them to cheat by viewing the word list
+- **Steps to Reproduce**:
+  1. Start a game with player names
+  2. Begin playing a round
+  3. Click "Word Bank" tab
+  4. View all available words including the current word
+- **Expected Behavior**: Word bank tab content MUST be hidden during active gameplay. Warning or prevention mechanism SHOULD be implemented (per REQ-UI-03)
+- **Actual Behavior**: Word Bank tab is fully accessible during gameplay with no restrictions
+- **Priority**: High
+- **Requirements Violated**: REQ-UI-03 (Word bank tab content MUST be hidden during active gameplay)
+- **Assigned To**: 
+- **Notes**: Fixed by adding gameState.gameActive check in switchTab() function with alert message to prevent access
+
+#### 4. Letter Buttons Not Disabled After Click
+- **Status**: Open
+- **Date Found**: February 11, 2026
+- **Description**: Letter buttons on the keyboard do not get visually disabled after being clicked, violating the requirement for disabled buttons to be visually distinct
 - **Steps to Reproduce**:
   1. Start a game
-  2. Make wrong guesses
-  3. Observe the order of hangman parts appearing
-- **Expected Behavior**: Parts MUST appear in this order: head, body, left arm, right arm, left leg, right leg (per REQ-GM-05)
-- **Actual Behavior**: Parts appear in order: head, left arm, right arm, body, left leg, right leg
-- **Priority**: High
-- **Requirements Violated**: REQ-GM-05 (Parts MUST appear in this order: head, body, left arm, right arm, left leg, right leg)
+  2. Click a letter button
+  3. Observe that button remains visually the same (not grayed out)
+- **Expected Behavior**: Disabled buttons MUST be visually distinct (grayed out) per REQ-UI-04
+- **Actual Behavior**: Buttons do not show disabled state visually
+- **Priority**: Medium
+- **Requirements Violated**: REQ-UI-04 (Disabled buttons MUST be visually distinct)
 - **Assigned To**: 
-- **Notes**: updateHangman() function at line 229 uses wrongOrder array with incorrect sequence; should use the parts array instead which has the correct order
+- **Notes**: Need to set button.disabled = true in guessLetter() function and ensure CSS handles :disabled state
 
 ---
