@@ -157,7 +157,20 @@
 - **Notes**: guessLetter() function checks if letter was used (line 176) but doesn't disable the button; need to add button.disabled = true after clicking
 
 #### 2. Incorrect Hangman Parts Display Order
-- **Status**: Open
+- **Status**: Fixed
+- **Date Found**: February 11, 2026
+- **Date Fixed**: February 11, 2026
+- **Description**: Hangman parts appear in the wrong order. Currently displays: head → left arm → right arm → body → left leg → right leg
+- **Steps to Reproduce**:
+  1. Start a game
+  2. Make wrong guesses
+  3. Observe the order of hangman parts appearing
+- **Expected Behavior**: Parts MUST appear in this order: head, body, left arm, right arm, left leg, right leg (per REQ-GM-05)
+- **Actual Behavior**: Parts appear in order: head, left arm, right arm, body, left leg, right leg
+- **Priority**: High
+- **Requirements Violated**: REQ-GM-05 (Parts MUST appear in this order: head, body, left arm, right arm, left leg, right leg)
+- **Assigned To**: 
+- **Notes**: Fixed by removing the wrongOrder array and using the correct parts array in updateHangman() function
 - **Date Found**: February 11, 2026
 - **Description**: Hangman parts appear in the wrong order. Currently displays: head → left arm → right arm → body → left leg → right leg
 - **Steps to Reproduce**:
