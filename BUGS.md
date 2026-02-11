@@ -119,8 +119,9 @@
 - **Notes**: Fixed by adding player turn switching logic to gameWon() function to match gameLost() behavior
 
 #### 2. Lives Not Resetting Between Rounds
-- **Status**: Open
+- **Status**: Fixed
 - **Date Found**: February 11, 2026
+- **Date Fixed**: February 11, 2026
 - **Description**: Lives counter calculation is incorrect and does not properly reset to 6 at the start of each round
 - **Steps to Reproduce**:
   1. Start a new round
@@ -133,7 +134,7 @@
 - **Priority**: High
 - **Requirements Violated**: REQ-GF-01 (Lives MUST reset to 6), REQ-GM-04 (Lives MUST start at 6)
 - **Assigned To**: 
-- **Notes**: Formula should be `livesLeft = maxWrong - wrongGuesses` (6 - 0 = 6, not 6 - 0 + 1 = 7)
+- **Notes**: Fixed by removing the +1 from the formula. Changed to `livesLeft = maxWrong - wrongGuesses` which correctly gives 6 lives at start (6 - 0 = 6)
 
 ---
 
