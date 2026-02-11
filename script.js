@@ -97,6 +97,15 @@ function addWord() {
     const word = rawWord.toUpperCase();
 
     // Validation
+
+
+    if (wordBank.includes(word)) {
+        alert('This word already exists in the word bank!');
+        return;
+    }
+
+
+    // Validation
     if (word === '') {
         alert('Word cannot be empty!');
         return;
