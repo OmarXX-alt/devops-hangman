@@ -102,13 +102,31 @@ function addWord() {
 }
 
 function editWord(index) {
-    const newWord = prompt('Edit word:', wordBank[index]);
+    const currentWord = wordBank[index];
+    const newWord = prompt('Edit word:', currentWord);
+
     if (newWord) {
-        wordBank.splice(index, 1);
+        const trimmedWord = newWord.trim().toUpperCase();
+        if (trimmedWord === '') {
+            alert('Word cannot be empty!');
+            return;
+        }
+        if (wordBank.includes(trimmedWord)) {
+            alert('This word already exists in the word bank!');
+            return;
+        }
+        if (!/^[A-Z]+$/.test(trimmedWord)) {
+            alert('Words must only contain uppercase letters A-Z!');
+            return;
+        }
+
+        wordBank[index] = trimmedWord;
+
         saveWordBank();
         displayWordBank();
     }
 }
+
 
 function deleteWord(index) {
     if (confirm('Are you sure you want to delete this word?')) {
