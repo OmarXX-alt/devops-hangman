@@ -19,6 +19,23 @@ let gameState = {
 
 let wordBank = [];
 
+// Centralized word validation to enforce REQ-WB-01 everywhere
+function validateWordInput(rawWord) {
+    const word = rawWord.trim().toUpperCase();
+
+    if (word === '') {
+        alert('Word cannot be empty.');
+        return null;
+    }
+    
+    if (!/^[A-Z]+$/.test(word)) {
+        alert('Word must contain only uppercase letters (A-Z). Numbers and special characters are not allowed.');
+        return null;
+    }
+
+    return word;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     loadWordBank();
     generateKeyboard();

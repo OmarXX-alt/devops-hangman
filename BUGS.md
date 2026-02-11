@@ -47,19 +47,20 @@
 
 
 ## 4. Numbers and Special Characters Validation Bug
-- **Status**: Open  
+- **Status**: Fixed  
 - **Date Found**: February 11, 2026  
-- **Description**: The system allows words containing numbers and special characters, violating the requirement that words must contain only uppercase letters (A–Z).  
+- **Date Fixed**: February 11, 2026  
+- **Description**: The system allowed words containing numbers and special characters, violating the requirement that words must contain only uppercase letters (A–Z).  
 - **Steps to Reproduce**:
   1. Open word bank  
   2. Enter a word such as HELLO123  
   3. Enter a word such as TEST!  
   4. Click add/save  
 - **Expected Behavior**: The system should reject words containing numbers or special characters.  
-- **Actual Behavior**: Words containing invalid characters are accepted.  
+- **Actual Behavior**: Words containing invalid characters were accepted.  
 - **Priority**: High  
 - **Assigned To**:  
-- **Notes**: Violates input validation rule defined in REQUIREMENTS.md.
+- **Notes**: Resolved by centralizing word validation in `validateWordInput()` to enforce REQ-WB-01 for add and edit actions.
 
 ## 5. Word Bank Delete Function Not Working
 - **Status**: Open  
