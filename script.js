@@ -171,11 +171,24 @@ function editWord(index) {
 
 
 function deleteWord(index) {
-    if (confirm('Are you sure you want to delete this word?')) {
-        saveWordBank();
-        displayWordBank();
+    if (index < 0 || index >= wordBank.length) {
+        alert("Invalid word selected.");
+        return;
     }
+
+    const confirmDelete = confirm("Are you sure you want to delete this word?");
+    if (!confirmDelete) return;
+
+    // ✅ Remove the word
+    wordBank.splice(index, 1);
+
+    // ✅ Save updated word bank
+    saveWordBank();
+
+    // ✅ Refresh display
+    displayWordBank();
 }
+
 
 function generateKeyboard() {
     const keyboard = document.getElementById('keyboard');
