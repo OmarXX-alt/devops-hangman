@@ -116,32 +116,59 @@ function displayWordBank() {
 
 function addWord() {
     const input = document.getElementById('newWord');
-    const validatedWord = validateWordInput(input.value);
+    const rawWord = input.value.trim();
+    const word = rawWord.toUpperCase();
 
-    if (!validatedWord) {
+    // Validation
+
+
+    if (wordBank.includes(word)) {
+        alert('This word already exists in the word bank!');
         return;
     }
 
-    wordBank.push(validatedWord);
+
+    // Validation
+    if (word === '') {
+        alert('Word cannot be empty!');
+        return;
+    }
+
+    //  Add valid word
+    wordBank.push(word);
     input.value = '';
     saveWordBank();
     displayWordBank();
 }
 
-function editWord(index) {
-    const newWord = prompt('Edit word:', wordBank[index]);
-    if (newWord !== null) {
-        const validatedWord = validateWordInput(newWord);
 
-        if (!validatedWord) {
+function editWord(index) {
+    //added fix for edit word
+    const currentWord = wordBank[index];
+    const newWord = prompt('Edit word:', currentWord);
+
+    if (newWord) {
+        const trimmedWord = newWord.trim().toUpperCase();
+        if (trimmedWord === '') {
+            alert('Word cannot be empty!');
+            return;
+        }
+        if (wordBank.includes(trimmedWord)) {
+            alert('This word already exists in the word bank!');
+            return;
+        }
+        if (!/^[A-Z]+$/.test(trimmedWord)) {
+            alert('Words must only contain uppercase letters A-Z!');
             return;
         }
 
-        wordBank[index] = validatedWord;
+        wordBank[index] = trimmedWord;
+
         saveWordBank();
         displayWordBank();
     }
 }
+
 
 function deleteWord(index) {
     if (confirm('Are you sure you want to delete this word?')) {
@@ -149,7 +176,20 @@ function deleteWord(index) {
         saveWordBank();
         displayWordBank();
     }
+
+    const confirmDelete = confirm("Are you sure you want to delete this word?");
+    if (!confirmDelete) return;
+
+    // ✅ Remove the word
+    wordBank.splice(index, 1);
+
+    // ✅ Save updated word bank
+    saveWordBank();
+
+    // ✅ Refresh display
+    displayWordBank();
 }
+
 
 function generateKeyboard() {
     const keyboard = document.getElementById('keyboard');
